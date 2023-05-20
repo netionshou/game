@@ -2,31 +2,31 @@ import pygame
 
 clock = pygame.time.Clock()
 pygame.init()
-screen = pygame.display.set_mode((1044, 587))
+screen = pygame.display.set_mode((832, 512))
 pygame.display.set_caption("kakashki")
 icon = pygame.image.load('addimages/IMG_3900.png').convert_alpha()
 pygame.display.set_icon(icon)
 
-bg = pygame.image.load('addimages/bg1.png').convert_alpha()
+bg = pygame.image.load('addimages/IMG_3928.png').convert_alpha()
 
 walk_left = [
-    pygame.image.load('addimages/p_left/s1.png').convert_alpha()
+    pygame.image.load('addimages/p_left/s1 (2).png').convert_alpha()
 ,
-    pygame.image.load('addimages/p_left/s2.png').convert_alpha()
+    pygame.image.load('addimages/p_left/s2 (2).png').convert_alpha()
 ,
-    pygame.image.load('addimages/p_left/s3.png').convert_alpha()
+    pygame.image.load('addimages/p_left/s3 (2).png').convert_alpha()
 ,
-    pygame.image.load('addimages/p_left/s4.png').convert_alpha()
+    pygame.image.load('addimages/p_left/s4 (2).png').convert_alpha()
 
 ]
 walk_right = [
-    pygame.image.load('addimages/p_right/u1.png').convert_alpha()
+    pygame.image.load('addimages/p_right/u1 (2).png').convert_alpha()
 ,
-    pygame.image.load('addimages/p_right/u2.png').convert_alpha()
+    pygame.image.load('addimages/p_right/u2 (2).png').convert_alpha()
 ,
-    pygame.image.load('addimages/p_right/u3.png').convert_alpha()
+    pygame.image.load('addimages/p_right/u3 (2).png').convert_alpha()
 ,
-    pygame.image.load('addimages/p_right/u4.png').convert_alpha()
+    pygame.image.load('addimages/p_right/u4 (2).png').convert_alpha()
 
 ]
 
@@ -46,8 +46,8 @@ player_y = 410
 is_jump = False
 jump_count = 9
 
-bg_sound = pygame.mixer.Sound('sounds/POL-azure-waters-short.wav')
-bg_sound.play()
+#bg_sound = pygame.mixer.Sound('sounds/POL-azure-waters-short.wav')
+#bg_sound.play()
 
 ghost_timer = pygame.USEREVENT + 1
 pygame.time.set_timer(ghost_timer, 2500)
@@ -55,7 +55,7 @@ pygame.time.set_timer(ghost_timer, 2500)
 label = pygame.font.Font('fonts/ofont.ru_Pixeloid Sans.ttf', 40)
 lose_label = label.render('Вы проиграли!', False, (193,196,199))
 restart_label = label.render('Играть заново', False, (115,132,148))
-restart_label_rect = restart_label.get_rect(topleft=(350, 350))
+restart_label_rect = restart_label.get_rect(topleft=(240, 250))
 
 
 bullets_left = 5
@@ -67,8 +67,8 @@ gameplay = True
 running = True
 while running:
     pygame.display.update()
-    screen.blit(bg, (bg_x, 0)) #pзадник
-    screen.blit(bg, (bg_x + 1044, 0))
+    screen.blit(bg, (bg_x, 0)) #задник
+    screen.blit(bg, (bg_x + 832, 0))
 
     if gameplay:
 
@@ -121,10 +121,8 @@ while running:
             player_anim_count += 1
 
         bg_x -= 2
-        if bg_x == -1044:
+        if bg_x == -832:
             bg_x = 0
-        else:
-            bg_x -=2
 
 
 
@@ -134,7 +132,7 @@ while running:
                 screen.blit(bullet,(el.x, el.y))
                 el.x += 4
 
-                if el.x > 1044:
+                if el.x > 832:
                     bullets.pop(i)
 
 
@@ -145,7 +143,7 @@ while running:
                             bullets.pop(i)
     else:
         screen.fill((87, 88 , 89))
-        screen.blit(lose_label,(350,250))
+        screen.blit(lose_label,(240,150))
         screen.blit(restart_label, restart_label_rect )
 
         mouse = pygame.mouse.get_pos()
@@ -164,8 +162,8 @@ while running:
             running = False
             pygame.quit()
         if event.type == ghost_timer :
-            ghost_list_in_game.append(ghost.get_rect(topleft=(1044,410)))
+            ghost_list_in_game.append(ghost.get_rect(topleft=(832,410)))
         if gameplay and event.type == pygame.KEYUP and event.key == pygame.K_c and bullets_left > 0:
             bullets.append(bullet.get_rect(topleft =( player_x + 30, player_y +10)))
             bullets_left -= 1
-    clock.tick(15)
+    clock.tick(14)
